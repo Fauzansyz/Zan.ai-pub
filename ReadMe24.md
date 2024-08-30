@@ -103,25 +103,27 @@ ___
 
 *Update kali ini saya menambahkan fitur authentication yang berfungsi untuk membedakan para pengguna nya*
 
-___
+* UI 
+   * smooth ui
+   
+   * new ui
 
-* auth
-   * login/auth`User/system`
-   
-   * Email 
-   
-   * Number phone
- 
-*  New ui 
-   *  smoothly ui `ui/interface`
-  
-  
-*  Bug fixed
-   * Bug fix
-   
-   * bug menu fixed 
-  
+* Models/System ``System``
 
+   * New model
+   
+   * 20 Model ai gpt dll
+   
+   * Stream mode
+   
+   * web search 
+  
+   * fast
+
+   * code scanner
+   
+   * image generation 
+   
 
    *[Buka link ini untuk mencoba apps versi website](http://localhost:7700/index.html)*
 

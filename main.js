@@ -1,6 +1,8 @@
 // Initialize IndexedDB
 const dbName = 'chatDB';
 let db;
+let datasMessage;
+import GPT4js from 'https://cdn.jsdelivr.net/npm/gpt4js@1.7.7/+esm'
 
 const request = indexedDB.open(dbName, 1);
 
@@ -183,50 +185,81 @@ function kirim() {
     chats.textContent = `${chat}`;
     chatContainers.appendChild(chats);
     pagesChat.appendChild(chatContainers);
-
     chats.scrollIntoView({ behavior: 'smooth', block: 'end' });
 
     const model = localStorage.getItem('selectedOption') || "Gemini";
-    fetch(`https://endpoint-fawn.vercel.app/api/completion/${model.toLowerCase()}/${lowerChatValue}`)
-      .then(response => {
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-        return response.json();
-      })
-      .then(data => {
-        const aiResponse = processResponseText(data.reply);
+    if (model.includes("gpt")) {
+      gptModels(model, lowerChatValue)
+        .then((data) => {
 
-        // Tampilkan respon AI setelah chat user
-        respons.innerHTML = aiResponse;
-        chatContainers.appendChild(respons);
-        pagesChat.appendChild(chatContainers);
+          respons.innerHTML = data;
+          chatContainers.appendChild(respons);
+          pagesChat.appendChild(chatContainers);
 
-        respons.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          respons.scrollIntoView({ behavior: 'smooth', block: 'center' });
 
-        const copyButton = respons.querySelector('.copyButton');
-        if (copyButton) {
-          copyButton.addEventListener('click', () => {
-            navigator.clipboard.writeText(data.reply)
-              .then(() => {
-                alertBox('Teks berhasil disalin!');
-              })
-              .catch(err => console.error('Gagal menyalin teks:', err));
-          });
-        }
+          const chatTitle = localStorage.getItem('NamaHistory') || 'Default Title';
+          saveChatToDB(chatTitle, chat, data);
 
-        // Simpan chat dan AI response ke IndexedDB
-        const chatTitle = localStorage.getItem('NamaHistory') || 'Default Title';
-        saveChatToDB(chatTitle, chat, data.reply);
-      })
-      .catch(error => {
-        console.error('Error fetching data:', error);
-        alertBox('Periksa koneksi internet anda dan coba lagi');
-      })
-      .finally(() => {
-        // Aktifkan kembali tombol kirim setelah mendapatkan respons
-        submitChat.disabled = false;
-      });
+          const copyButton = respons.querySelector('.copyButton');
+          if (copyButton) {
+            copyButton.addEventListener('click', () => {
+              navigator.clipboard.writeText(data)
+                .then(() => {
+                  alertBox('Teks berhasil disalin!');
+                })
+                .catch(err => console.error('Gagal menyalin teks:', err));
+            });
+          }
+        })
+        .catch((error) => {
+          console.error("Error:", error); // Menangani error jika terjadi
+        })
+        .finally(() => {
+          submitChat.disabled = false;
+        })
+    } else {
+      fetch(`https://endpoint-fawn.vercel.app/api/completion/${model.toLowerCase()}/${lowerChatValue}`)
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          return response.json();
+        })
+        .then(data => {
+          const aiResponse = processResponseText(data.reply);
+
+          // Tampilkan respon AI setelah chat user
+          respons.innerHTML = aiResponse;
+          chatContainers.appendChild(respons);
+          pagesChat.appendChild(chatContainers);
+
+          respons.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+          const copyButton = respons.querySelector('.copyButton');
+          if (copyButton) {
+            copyButton.addEventListener('click', () => {
+              navigator.clipboard.writeText(data.reply)
+                .then(() => {
+                  alertBox('Teks berhasil disalin!');
+                })
+                .catch(err => console.error('Gagal menyalin teks:', err));
+            });
+          }
+
+          // Simpan chat dan AI response ke IndexedDB
+          const chatTitle = localStorage.getItem('NamaHistory') || 'Default Title';
+          saveChatToDB(chatTitle, chat, data.reply);
+        })
+        .catch(error => {
+          console.error('Error fetching data:', error);
+          alertBox('Periksa koneksi internet anda dan coba lagi');
+        })
+        .finally(() => {
+          // Aktifkan kembali tombol kirim setelah mendapatkan respons
+          submitChat.disabled = false;
+        });
+    }
   }
 }
 
@@ -296,6 +329,8 @@ function handleClickOutside(event) {
 
 document.querySelector(".button-setting").onclick = openSidebar;
 document.querySelector(".closebtn").onclick = closeSidebar;
+document.querySelector('.setting-icon').onclick = openSetting
+document.getElementById('exit-btn').onclick = closeSettingPopup
 
 function openSetting() {
   const settingPopup = document.getElementById('settings');
@@ -356,6 +391,10 @@ closeForm.addEventListener("click", () => {
   formInput.style.display = "none";
 });
 
+document.querySelector('#formSetting').addEventListener("click", () => {
+  openForm()
+})
+
 function openForm() {
   const formInput = document.getElementById("popupForm");
   formInput.style.display = "block";
@@ -380,6 +419,13 @@ saveBtn.addEventListener("click", () => {
     detailsContainer.innerHTML = '';
   }
 });
+
+document.querySelector('.history-icon').addEventListener("click", () => {
+  history()
+})
+
+
+document.querySelector('.exit-btn').onclick = closeHistory
 
 function history() {
   const historyPopup = document.getElementById('historyPopup');
@@ -462,7 +508,7 @@ function showPopup(element) {
   chatTextSelect = element.textContent || element.innerText;
 
   // Tampilkan popup dengan posisi yang telah dihitung
- 
+
   popup.style.top = `${adjustedTopPosition}px`;
   popup.style.display = 'flex';
 }
@@ -513,3 +559,43 @@ function copyChat(element) {
     })
     .catch(err => console.error('Gagal menyalin teks:', err));
 }
+
+function gptModels(models, pesan) {
+  const messages = [{ role: "user", content: `${pesan}` }];
+  const options = {
+    provider: "Aryahcr",
+    model: `${models}`,
+    stream: true,
+    temperature: 0.5,
+    codeModelMode: true,
+  };
+
+  // Menggunakan Promise untuk mengembalikan data secara asinkron
+  return new Promise(async (resolve, reject) => {
+    const provider = GPT4js.createProvider(options.provider);
+    try {
+      await provider.chatCompletion(messages, options, (data) => {
+        resolve(data); // Menyelesaikan Promise dan mengembalikan data
+      });
+    } catch (error) {
+      reject(error); // Menyelesaikan Promise dengan error jika terjadi masalah
+    }
+  });
+}
+
+const inputContainer = document.querySelector('.formInput');
+let initialViewportHeight = window.innerHeight;
+
+window.addEventListener('resize', () => {
+  const newViewportHeight = window.innerHeight;
+
+  if (newViewportHeight < initialViewportHeight) {
+    // Keyboard mungkin muncul
+    inputContainer.style.transform = 'translateY(-50px)';
+  } else {
+    // Keyboard mungkin hilang
+    inputContainer.style.transform = 'translateY(0)';
+  }
+
+  initialViewportHeight = newViewportHeight;
+});

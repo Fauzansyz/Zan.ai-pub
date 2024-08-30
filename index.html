@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/tesseract.js@v2.1.1/dist/tesseract.min.js"></script>
   <title>Zan.ai</title>
   <link rel="stylesheet" href="style.css">
 </head>
@@ -20,11 +21,12 @@
       <h2 class="headerText">Zan.Ai</h2>
       <div class="buttonNav">
         <button onclick="openSidebar()" class="button-setting"><i class="fas fa-bars"></i></button>
-        <button class="button-setting" onclick="openForm()"><i class="fas fa-pencil-alt"></i></button>
+        <button id='formSetting' class="button-setting"><i class="fas fa-pencil-alt"></i></button>
       </div>
     </div>
     <div class="" id="chatContainer"></div>
     <div class="formInput">
+      <button class="btnAdd"><i class="fas fa-plus"></i><input type="file" name="" id="imageInput"></button>
       <input type="text" placeholder="Your question" id="message" required>
       <button class="submitBtn"><i class="fas fa-arrow-up"></i></button>
     </div>
@@ -39,10 +41,12 @@
   <div id="popupSetting">
     <button id="exit-btn-setting">&times;</button>
     <div class="about-container">
-      <p class="setting-about">About me</p>
-      <p class="info setting-font">Aplikasi ai ini di buat dari seseorang yang gabut, yang bertujuan untuk membuat temen curhat para jomblo</p>
+      <p class="setting-about">Apa yang baru</p>
+      <p class="info setting-font">
+        Fitur baru yaitu scan foto text yang dapat memindai text yang ada di dalam foto dan dapat memerintahkan kepada ai untuk menjawab atau mengolah text tsb
+      </p>
       <p class="info setting-font">com.zanai.fauzansyz</p>
-      <p class="info">v 3.0 beta</p>
+      <p class="info">v 3.9 beta</p>
     </div>
   </div>
 
@@ -80,6 +84,9 @@
             <button class="option" data-value="turbo-16k">turbo-16k</button>
             <button class="option" data-value="llama3-8b">llama3-8b</button>
             <button class="option" data-value="Gemini">Gemini</button>
+            <button class="option" data-value="gpt-4-0613">gpt-4-0613</button>
+            <button class="option" data-value="gpt-4">gpt-4</button>
+            <button class="option" data-value="gpt-4-32k">gpt-4-32k</button>
           </div>
         </div>
       </div>
@@ -88,7 +95,7 @@
 
   <div id="historyPopup">
     <div class="navSetting">
-      <button id="exit-btn" onclick="closeHistory()">&leftarrow;</button>
+      <button class="exit-btn" id='exit-btn'>&leftarrow;</button>
       <h2 class="headerSetting">History</h2>
     </div>
     <div class="history-container"></div>
@@ -105,13 +112,26 @@
 
   <div id="sidebar" class="sidebar">
     <button href="javascript:void(0)" class="closebtn" onclick="closeSidebar()"><i class="fas fa-home"></i></button>
-    <button onclick="openSetting()" class="setting-icon" href="#"><i class="fas fa-cog"></i></button>
+    <button class="setting-icon" href="#"><i class="fas fa-cog" onclick="openSetting()"></i></button>
     <button onclick="openInfo()" class="info-icon" href="#"><i class="fas fa-info"></i></button>
     <button class="profile-icon" onclick="userMenu()"><i class="fas fa-user"></i></button>
-    <button class="history-icon" onclick="history()"><i class="fas fa-history"></i></button>
+    <button class="history-icon"><i class="fas fa-history"></i></button>
   </div>
 
-  <script src="main.js"></script>
+  <div id="voice-container">
+    <p class="voice-title">Voice room</p>
+    <button id="exit-voice">&times;</button>
+    <div id="voice-button">
+      <i id="icon-mic" class="fas fa-microphone"></i>
+      <p class="button-status">Mendengarkan</p>
+    </div>
+    <div id="exit-voice-button">
+      <i id="icon-mic" class="fas fa-stop-circle"></i>
+      <p class="button-status">Merespon</p>
+    </div>
+  </div>
+
+  <script src="main.js" type="module"></script>
 </body>
 
 </html>

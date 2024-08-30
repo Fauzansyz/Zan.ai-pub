@@ -2,7 +2,15 @@ body {
   margin: 0;
   padding: 0;
   font-family: "Roboto", sans-serif;
-  scroll-behavior:smooth;
+  scroll-behavior: smooth;
+  user-select: none;
+  /* Nonaktifkan seleksi teks */
+  -webkit-user-select: none;
+  /* Nonaktifkan seleksi teks di WebKit (Safari, Chrome) */
+  -moz-user-select: none;
+  /* Nonaktifkan seleksi teks di Firefox */
+  -ms-user-select: none;
+  /* Nonaktifkan seleksi teks di Internet Explorer/Edge */
 }
 
 .all-component {
@@ -35,41 +43,46 @@ body {
 .formInput {
   position: fixed;
   /* bottom: 0; */
+  margin:15px 15px 0px 0px;
   width: 100%;
   height: 10vh;
   background: transparent;
   z-index: 10;
   display: flex;
   align-items: center;
-  bottom: 11px;
+  bottom: 10px;
+  /* margin:0 auto; */
+  justify-content:space-evenly;
+  max-height:400px;
+  transition:.4s ease-in-out;
 }
 
 #message {
-  width: 60%;
-  margin: 20px;
-  height: 1.9vh;
-  padding: 12px;
+  width: 55%;
+  height: 1.8vh;
+  padding: 14px;
   border-radius: 50px;
   border: 2px solid #f7f7f7;
   background: #0D0D0D;
   color: #fff;
   position: fixed;
   z-index: 10;
-  /* max-width: 65%; */
-  /* max-height: 1.9vh; */
+  max-width:100%;
+  margin-right:10px;
 }
 
 .submitBtn {
-  width: 20%;
-  height: 5vh;
+  width: 14%;
+  height: 6vh;
   border-radius: 50px;
   border: 1px solid #fff;
   font-weight: 455;
   font-size: 18px;
   position: fixed;
-  right: 15px;
+  right: 10px;
   z-index: 10;
-
+  max-width:600px;
+  min-width:10px;
 }
 
 #chatContainer {
@@ -92,10 +105,14 @@ body {
   font-size: 13px;
   font-weight: 455;
   align-self: flex-start;
-  user-select: none;  /* Nonaktifkan seleksi teks */
-  -webkit-user-select: none;  /* Nonaktifkan seleksi teks di WebKit (Safari, Chrome) */
-  -moz-user-select: none;  /* Nonaktifkan seleksi teks di Firefox */
-  -ms-user-select: none;  /* Nonaktifkan seleksi teks di Internet Explorer/Edge */
+  user-select: none;
+  /* Nonaktifkan seleksi teks */
+  -webkit-user-select: none;
+  /* Nonaktifkan seleksi teks di WebKit (Safari, Chrome) */
+  -moz-user-select: none;
+  /* Nonaktifkan seleksi teks di Firefox */
+  -ms-user-select: none;
+  /* Nonaktifkan seleksi teks di Internet Explorer/Edge */
 }
 
 .responsed {
@@ -522,16 +539,20 @@ input:checked+.slider:before {
 .dropdown-content {
   visibility: hidden;
   opacity: 0;
-  max-height: 0;
-  position: absolute;
+  max-height: 300px;
+  position: fixed;
   background-color: #f9f9f9;
   min-width: 160px;
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-  z-index: 1;
+  z-index: 20;
   border-radius: 5px;
-  overflow: hidden;
-  transition: opacity 0.5s ease, max-height 0.5s ease, visibility 0.5s;
+  
+  /* overflow: auto; */
+    overflow-y: auto; /* Enable scrolling */
+  transition: opacity 0.5s ease, max-height, 0.5s ease, visibility 0.5s;
   right: 10%;
+  /* border:1px solid red; */
+  
 }
 
 .dropdown-content button {
@@ -560,7 +581,7 @@ input:checked+.slider:before {
   background-color: #111;
 }
 
-.history-icon{
+.history-icon {
   text-decoration: none;
   font-size: 20px;
   color: #fff;
@@ -569,18 +590,18 @@ input:checked+.slider:before {
   position: absolute;
   top: 35%;
   background: transparent;
-  border:none;
+  border: none;
   border-radius: 50px;
   width: 80%;
   height: 5vh;
 
 }
 
-.buttonNav{
-  width:40%;
+.buttonNav {
+  width: 40%;
 }
 
-#popupForm{
+#popupForm {
   display: none;
   position: fixed;
   top: 50%;
@@ -597,7 +618,7 @@ input:checked+.slider:before {
   z-index: 400999;
 }
 
-#exit-form{
+#exit-form {
   background: transparent;
   position: absolute;
   top: 10px;
@@ -609,34 +630,34 @@ input:checked+.slider:before {
   color: #fff;
 }
 
-.formTitle{
-  font-size:23px;
+.formTitle {
+  font-size: 23px;
 }
 
-#ChatName{
-  width:80%;
-  background:transparent;
-  height:3vh;
-  border:none;
-  padding:10px;
-  border:1px solid white;
-  border-radius:5px;
-  margin-top:3%;
-  color:#fff;
-  z-index:10;
+#ChatName {
+  width: 80%;
+  background: transparent;
+  height: 3vh;
+  border: none;
+  padding: 10px;
+  border: 1px solid white;
+  border-radius: 5px;
+  margin-top: 3%;
+  color: #fff;
+  z-index: 10;
 }
 
-.saveBtn{
-  width:30%;
-  height:5vh;
-  position:absolute;
-  margin-top:40%;
-  border:none;
-  border-radius:5px;
-  font-weight:bold;
+.saveBtn {
+  width: 30%;
+  height: 5vh;
+  position: absolute;
+  margin-top: 40%;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
 }
 
-#historyPopup{
+#historyPopup {
   display: none;
   position: fixed;
   top: 50%;
@@ -645,7 +666,7 @@ input:checked+.slider:before {
   background-color: #111;
   color: #fff;
   height: 100vh;
-  flex-direction:column;
+  flex-direction: column;
   /* padding: 25px; */
   width: 100%;
   transition: .3s ease-in-out;
@@ -655,33 +676,41 @@ input:checked+.slider:before {
   /* margin:0 auto; */
 }
 
-.history-container{
+.history-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
   background: #111;
   height: 90vh;
-  overflow-x:auto;
-  gap:15px;
-  margin-top:7%
+  overflow-x: auto;
+  gap: 15px;
+  margin-top: 7%
 }
 
 
-.chat-history-item{
-  display:flex;
-  flex-direction:column;
-  width:100%;
+.chat-history-item {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
 }
 
-.cards{
-  width:90%;
-  height:12vh;
-  border:1px solid white;
-  display: flex ;
+.cards {
+  width: 90%;
+  height: 12vh;
+  border:1px solid #AEAEAE78;
+  display: flex;
   justify-content: center;
-  border-radius:5px;
-  align-items:center;
+  border-radius:10px;
+  align-items: center;
+}
+
+.cards:active {
+  background: #AEAEAE78
+}
+
+.cards:hover {
+  background: #AEAEAE78
 }
 
 /* history-container{
@@ -689,8 +718,8 @@ input:checked+.slider:before {
   position: absolute;
 } */
 
-.title-chat{
-  font-size:18px;
+.title-chat {
+  font-size: 18px;
 }
 
 #popupOptions {
@@ -701,23 +730,29 @@ input:checked+.slider:before {
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
   z-index: 1000;
   display: none;
-  left:5%;
-  border-radius: 8px; /* Membuat sudut lebih bulat */
-  transition: all 0.2s ease-in-out; /* Animasi untuk transisi */
-  flex-direction:column;
-  width:85%;
-  gap:10px;
+  left: 5%;
+  border-radius: 8px;
+  /* Membuat sudut lebih bulat */
+  transition: all 0.2s ease-in-out;
+  /* Animasi untuk transisi */
+  flex-direction: column;
+  width: 85%;
+  gap: 10px;
   z-index: 100;
   /* box-shadow: 0px 0px 10px rgba(0,0,0,0.1); */
 }
 
-@media only screen and (min-resolution: 2dppx), /* untuk DPI tinggi */
-       only screen and (min-resolution: 192dpi) { /* untuk DPI tinggi dalam satuan DPI */
-    /* Gaya CSS untuk DPI tinggi */
-    body {
-        font-size: 1.1em; /* Misalnya, memperbesar teks */
-    }
-    
+@media only screen and (min-resolution: 2dppx),
+/* untuk DPI tinggi */
+only screen and (min-resolution: 192dpi) {
+
+  /* untuk DPI tinggi dalam satuan DPI */
+  /* Gaya CSS untuk DPI tinggi */
+  body {
+    font-size: 1.1em;
+    /* Misalnya, memperbesar teks */
+  }
+
 }
 
 /* @media only screen and (max-width: 800px) {
@@ -755,18 +790,113 @@ input:checked+.slider:before {
   }
 }
 
-.reload{
-  background:#3B3B3B;
+.reload {
+  background: #3B3B3B;
+  border: none;
+  color: #fff;
+  font-size: 18px;
+  font-weight: 455;
+}
+
+.copyChat {
+  background: #3B3B3B;
+  border: none;
+  color: #fff;
+  font-size: 18px;
+  font-weight: 455;
+}
+
+.btnAdd{
+  width:14%;
+  height:6vh;
+  font-size:19px;
+  background:transparent;
+  color:#fff;
+  position:absolute;
+  border-radius:50px;
+  bottom:15px;
+  left:8px;
   border:none;
+}
+
+#imageInput{
+  opacity:0%;
+  position:fixed;
+}
+
+.imageChat {
+  width:20%;
+  border-radius:5px;
+  float:right;
+  /* position:absolute; */
+  margin-right:20px;
+}
+
+#voice-container{
+  width:100%;
+  height:35vh;
+  background:red;
+  position:fixed;
+  background:#616161;
+  z-index:20;
+  bottom:0;
+  transform:scaleY(0);
+  transform-origin:bottom;
+  border-radius:10px 10px 0px 0px;
+  transition:.1s ease-in-out;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+#exit-voice{
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 30px;
+  font-weight: bold;
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  color: #fff;
+}
+
+#voice-button{
+  background:#353535;
+  width:80%;
+  height:20vh;
+  border-radius:10px;
+  display:flex;
+  flex-direction:column;
+  align-items: center;
+  justify-content:center;
+}
+
+.voice-title{
   color:#fff;
   font-size:18px;
+  position:absolute;
+  top:0;
+  left: 15px;
   font-weight:455;
 }
 
-.copyChat{
-  background:#3B3B3B;
-  border:none;
+#icon-mic {
+  font-size:30px;
   color:#fff;
-  font-size:18px;
-  font-weight:455;
+}
+
+.button-status{
+  color:#fff;
+}
+
+#exit-voice-button{
+  background:#353535;
+  width:80%;
+  height:20vh;
+  border-radius:10px;
+  display: none;
+  flex-direction:column;
+  align-items: center;
+  justify-content:center;
 }
