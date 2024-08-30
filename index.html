@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+  <link rel="manifest" href="/manifest.json">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
+  <title>Zan.ai</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div class="all-component">
+    <div class="nav">
+      <h2 class="headerText">Zan.Ai</h2>
+      <div class="buttonNav">
+        <button onclick="openSidebar()" class="button-setting"><i class="fas fa-bars"></i></button>
+        <button class="button-setting" onclick="openForm()"><i class="fas fa-pencil-alt"></i></button>
+      </div>
+    </div>
+    <div class="" id="chatContainer"></div>
+    <div class="formInput">
+      <input type="text" placeholder="Your question" id="message" required>
+      <button class="submitBtn"><i class="fas fa-arrow-up"></i></button>
+    </div>
+  </div>
+  <div class="container-alert">
+    <div class="alertBox">
+      <p class="alertion"></p>
+      <button class="buttonAlrt">&times;</button>
+    </div>
+  </div>
+
+  <div id="popupSetting">
+    <button id="exit-btn-setting">&times;</button>
+    <div class="about-container">
+      <p class="setting-about">About me</p>
+      <p class="info setting-font">Aplikasi ai ini di buat dari seseorang yang gabut, yang bertujuan untuk membuat temen curhat para jomblo</p>
+      <p class="info setting-font">com.zanai.fauzansyz</p>
+      <p class="info">v 3.0 beta</p>
+    </div>
+  </div>
+
+  <div id="popupForm">
+    <button id="exit-form">&times;</button>
+    <div class="about-container">
+      <h2 class="formTitle">New chat</h2>
+      <input type="text" placeholder="Name chat" id="ChatName">
+      <button class="saveBtn">Save</button>
+    </div>
+  </div>
+
+  <div id="settings">
+    <div class="navSetting">
+      <button id="exit-btn" onclick="closeSettingPopup()">&leftarrow;</button>
+      <h2 class="headerSetting">Setting</h2>
+    </div>
+    <div class="setting-container">
+      <h3 class="security-option">Security</h3>
+      <div class="setting-item">
+        <span>No failed request</span>
+        <label class="switch">
+          <input type="checkbox" id="toggle1">
+          <span class="slider round"></span>
+        </label>
+      </div>
+    </div>
+    <div class="setting-container">
+      <h3 class="security-option">AI model</h3>
+      <div class="setting-item">
+        <span>Models</span>
+        <div class="dropdown">
+          <button class="dropbtn">Select Models</button>
+          <div class="dropdown-content">
+            <button class="option" data-value="turbo-16k">turbo-16k</button>
+            <button class="option" data-value="llama3-8b">llama3-8b</button>
+            <button class="option" data-value="Gemini">Gemini</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="historyPopup">
+    <div class="navSetting">
+      <button id="exit-btn" onclick="closeHistory()">&leftarrow;</button>
+      <h2 class="headerSetting">History</h2>
+    </div>
+    <div class="history-container"></div>
+  </div>
+
+  <div id="popupOptions">
+    <button class="reload "><i class="fas fa-sync"></i> Muat ulang respon</button>
+    <button class="copyChat"><i class="fas fa-clipboard"></i> Copy</button>
+  </div>
+
+  <div id="response-popup">
+
+  </div>
+
+  <div id="sidebar" class="sidebar">
+    <button href="javascript:void(0)" class="closebtn" onclick="closeSidebar()"><i class="fas fa-home"></i></button>
+    <button onclick="openSetting()" class="setting-icon" href="#"><i class="fas fa-cog"></i></button>
+    <button onclick="openInfo()" class="info-icon" href="#"><i class="fas fa-info"></i></button>
+    <button class="profile-icon" onclick="userMenu()"><i class="fas fa-user"></i></button>
+    <button class="history-icon" onclick="history()"><i class="fas fa-history"></i></button>
+  </div>
+
+  <script src="main.js"></script>
+</body>
+
+</html>
