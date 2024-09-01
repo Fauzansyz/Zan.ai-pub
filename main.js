@@ -329,8 +329,8 @@ function handleClickOutside(event) {
 
 document.querySelector(".button-setting").onclick = openSidebar;
 document.querySelector(".closebtn").onclick = closeSidebar;
-document.querySelector('.setting-icon').onclick = openSetting
-document.getElementById('exit-btn').onclick = closeSettingPopup
+document.querySelector('.setting-icon').addEventListener("click",openSetting)
+document.getElementById('exit-btn').addEventListener("click",closeSettingPopup)
 
 function openSetting() {
   const settingPopup = document.getElementById('settings');
@@ -342,12 +342,16 @@ function closeSettingPopup() {
   settingPopup.style.display = "none";
 }
 
+document.querySelector('.profile-icon').addEventListener("click",userMenu)
+
 function userMenu() {
   alertBox("Maaf menu profile belum ada");
 }
 
+document.querySelector('.info-icon').addEventListener("click",openInfo)
+
 function openInfo() {
-  console.log('Ini info');
+  // console.log('Ini info');
   const setting = document.getElementById("popupSetting").style.display = "block";
 }
 
@@ -561,7 +565,7 @@ function copyChat(element) {
 }
 
 function gptModels(models, pesan) {
-  const messages = [{ role: "user", content: `${pesan}` }];
+  const messages = [{ role: "user", content: `${pesan}`,webSearch: true,codeModelMode:true }];
   const options = {
     provider: "Aryahcr",
     model: `${models}`,
