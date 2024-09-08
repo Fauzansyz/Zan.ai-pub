@@ -91,6 +91,7 @@ body {
   display: flex;
   overflow-x: auto;
   flex-direction: column;
+  gap: 10px; /* Tambahkan jarak antar chat */
 }
 
 .chat {
@@ -106,14 +107,10 @@ body {
   font-weight: 455;
   align-self: flex-start;
   user-select: none;
-  /* Nonaktifkan seleksi teks */
-  -webkit-user-select: none;
-  /* Nonaktifkan seleksi teks di WebKit (Safari, Chrome) */
-  -moz-user-select: none;
-  /* Nonaktifkan seleksi teks di Firefox */
-  -ms-user-select: none;
-  /* Nonaktifkan seleksi teks di Internet Explorer/Edge */
+  max-width: 80%; /* Batas lebar maksimum chat */
+  word-wrap: break-word; /* Agar teks tidak melampaui batas elemen */
 }
+
 
 .responsed {
   /* border: 1px solid #ddd; */
@@ -125,6 +122,7 @@ body {
   margin: 20px;
   font-size: 13px;
   color: #fff;
+  /* background:#DDDDDDA3; */
   font-weight: 455;
   white-space: pre-wrap;
   word-wrap: break-word;
@@ -899,4 +897,53 @@ only screen and (min-resolution: 192dpi) {
   flex-direction:column;
   align-items: center;
   justify-content:center;
+}
+
+/* Skeleton container */
+.skeleton-container {
+  display: none;
+  flex-direction: column;
+  width: 90%;
+  margin-top: 10px; 
+  padding:15px;
+  border-radius:10px;
+  /* background:#93939373; *//* Margin di atas elemen skeleton */
+}
+
+
+.skeleton {
+    background-color: #3F4CFF;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    animation: shimmer 1.5s infinite linear;
+}
+
+.skeleton-img {
+    width: 100%;
+    height: 150px;
+}
+
+.skeleton-title {
+    width: 60%;
+    height: 20px;
+}
+
+.skeleton-text {
+    width: 80%;
+    height: 15px;
+}
+
+/* Animasi shimmer dengan transisi smooth */
+@keyframes shimmer {
+    0% {
+        background-position: -800px 0;
+    }
+    100% {
+        background-position: 800px 0;
+    }
+}
+
+.skeleton {
+    background: linear-gradient(90deg, #3F4CFF 20%, #FFFFFF 40%, #ADD8E6 60%, #3F4CFF 80%);
+    background-size: 1600px 100%;
 }

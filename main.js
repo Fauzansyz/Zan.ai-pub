@@ -159,8 +159,8 @@ function kirim() {
   const pagesChat = document.querySelector('#chatContainer');
   const chatContainers = document.createElement('div');
   const respons = document.createElement('div');
-  const chats = document.createElement('div');
-
+  const chats = document.createElement('div')
+  const skeleton = document.querySelector('.skeleton-container')
   respons.classList.add('responsed');
   chats.classList.add('chat');
   chatContainers.classList.add('chatContainers');
@@ -178,12 +178,14 @@ function kirim() {
     }, 700);
   } else {
     // Nonaktifkan tombol kirim
+    
     submitChat.disabled = true;
     submitChat.style.border = "none"
-
+    skeleton.style.display = "flex"
     // Tampilkan chat user langsung
     chats.textContent = `${chat}`;
     chatContainers.appendChild(chats);
+    chatContainers.appendChild(skeleton)
     pagesChat.appendChild(chatContainers);
     chats.scrollIntoView({ behavior: 'smooth', block: 'end' });
 
@@ -191,8 +193,22 @@ function kirim() {
     if (model.includes("gpt")) {
       gptModels(model, lowerChatValue)
         .then((data) => {
-
-          respons.innerHTML = data;
+          let currentIndex = 0;
+          const textParts = data.split(' ');
+          const interval = setInterval(() => {
+            if (currentIndex < textParts.length) {
+              // Tambahkan teks baru ke dalam div
+              respons.innerHTML += textParts[currentIndex] + ' ';
+              respons.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          
+              // Buat div menyesuaikan panjang teks
+              // respons.style.height= respons.scrollWidth + "px"; // Sesuaikan lebar div
+          
+              currentIndex++;
+            } else {
+              clearInterval(interval); // Stop setelah semua bagian teks dikirim
+            }
+          }, 100)
           chatContainers.appendChild(respons);
           pagesChat.appendChild(chatContainers);
 
@@ -217,6 +233,7 @@ function kirim() {
         })
         .finally(() => {
           submitChat.disabled = false;
+          skeleton.style.display = "none"
         })
     } else {
       fetch(`https://endpoint-fawn.vercel.app/api/completion/${model.toLowerCase()}/${lowerChatValue}`)
@@ -228,9 +245,22 @@ function kirim() {
         })
         .then(data => {
           const aiResponse = processResponseText(data.reply);
-
-          // Tampilkan respon AI setelah chat user
-          respons.innerHTML = aiResponse;
+          let currentIndex = 0;
+          const textParts = aiResponse.split(' ');
+    const interval = setInterval(() => {
+      if (currentIndex < textParts.length) {
+        // Tambahkan teks baru ke dalam div
+        respons.innerHTML += textParts[currentIndex] + ' ';
+        respons.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        
+        // Buat div menyesuaikan panjang teks
+        // respons.style.height= respons.scrollWidth + "px"; // Sesuaikan lebar div
+        
+        currentIndex++;
+      } else {
+        clearInterval(interval); // Stop setelah semua bagian teks dikirim
+      }
+    }, 100)
           chatContainers.appendChild(respons);
           pagesChat.appendChild(chatContainers);
 
@@ -257,6 +287,7 @@ function kirim() {
         })
         .finally(() => {
           // Aktifkan kembali tombol kirim setelah mendapatkan respons
+          skeleton.style.display = "none"
           submitChat.disabled = false;
         });
     }
