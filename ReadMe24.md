@@ -104,15 +104,17 @@ ___
 *Update kali ini saya menambahkan fitur authentication yang berfungsi untuk membedakan para pengguna nya*
 
 * UI 
-   * smooth ui
+   * smooth ui `Interface/UI`
    
-   * new ui
+   * new ui `Interface/UI`
+  
+   * loading smoothly  `Interface/UI`
 
 * Models/System ``System``
 
    * New model
    
-   * 20 Model ai gpt dll
+   * 5 Model ai gpt dll
    
    * Stream mode
    
@@ -120,11 +122,14 @@ ___
   
    * fast
 
-   * code scanner
+   * code analize
    
    * image generation 
-   
+  
+
 
    *[Buka link ini untuk mencoba apps versi website](http://localhost:7700/index.html)*
+   
+   `web is status early access, jadi web ini masih dalam proses baru jadi kalo masih ada "vulnerabilities" wajar ya`
 
 ___

@@ -945,5 +945,89 @@ only screen and (min-resolution: 192dpi) {
 
 .skeleton {
     background: linear-gradient(90deg, #3F4CFF 20%, #FFFFFF 40%, #ADD8E6 60%, #3F4CFF 80%);
-    background-size: 1600px 100%;
+}
+
+
+#popupLogin{
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #111;
+  color: #fff;
+  height: 100vh;
+  padding: 25px;
+  width: 100%;
+  transition: .3s ease-in-out;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  z-index: 400999;
+}
+
+.itemLoginTop{
+  border:none;
+  width:100%;
+  height:40vh;
+  display:flex;
+  flex-direction:column;
+}
+
+#logos{
+  width:25%;
+  margin:5%;
+}
+
+.title-login{
+  margin:20px;
+  font-size:40px;
+}
+
+.itemLoginTop p {
+  margin-left:15px;
+  width:80%;
+  font-size:10px;
+}
+
+.formLogin{
+  width:100%;
+  height:20vh;
+  margin-top:35px;
+}
+
+#userEmail{
+  display:block;
+  width:80%;
+  height:5vh;
+  padding:10px;
+  margin:20px 0px 10px 15px;
+  background:transparent;
+  border:1px solid white;
+  border-radius:1px;
+  color:#fff;
+}
+
+.labels{
+  margin:50px 0px 0px 20px;
+  font-size:20px;
+  font-weight:455;
+}
+
+#next-button{
+  width:20%;
+  height:5vh;
+  float:right;
+  margin:20px;
+}
+
+#passwordUser{
+  display:none;
+  width:80%;
+  height:5vh;
+  padding:10px;
+  margin:20px 0px 10px 15px;
+  background:transparent;
+  border:1px solid white;
+  border-radius:1px;
+  color:#fff;
 }

