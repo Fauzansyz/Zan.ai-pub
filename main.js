@@ -178,7 +178,7 @@ function kirim() {
     }, 700);
   } else {
     // Nonaktifkan tombol kirim
-    
+
     submitChat.disabled = true;
     submitChat.style.border = "none"
     skeleton.style.display = "flex"
@@ -200,10 +200,10 @@ function kirim() {
               // Tambahkan teks baru ke dalam div
               respons.innerHTML += textParts[currentIndex] + ' ';
               respons.scrollIntoView({ behavior: 'smooth', block: 'center' });
-          
+
               // Buat div menyesuaikan panjang teks
               // respons.style.height= respons.scrollWidth + "px"; // Sesuaikan lebar div
-          
+
               currentIndex++;
             } else {
               clearInterval(interval); // Stop setelah semua bagian teks dikirim
@@ -247,20 +247,20 @@ function kirim() {
           const aiResponse = processResponseText(data.reply);
           let currentIndex = 0;
           const textParts = aiResponse.split(' ');
-    const interval = setInterval(() => {
-      if (currentIndex < textParts.length) {
-        // Tambahkan teks baru ke dalam div
-        respons.innerHTML += textParts[currentIndex] + ' ';
-        respons.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        
-        // Buat div menyesuaikan panjang teks
-        // respons.style.height= respons.scrollWidth + "px"; // Sesuaikan lebar div
-        
-        currentIndex++;
-      } else {
-        clearInterval(interval); // Stop setelah semua bagian teks dikirim
-      }
-    }, 100)
+          const interval = setInterval(() => {
+            if (currentIndex < textParts.length) {
+              // Tambahkan teks baru ke dalam div
+              respons.innerHTML += textParts[currentIndex] + ' ';
+              respons.scrollIntoView({ behavior: 'smooth', block: 'end' });
+
+              // Buat div menyesuaikan panjang teks
+              // respons.style.height= respons.scrollWidth + "px"; // Sesuaikan lebar div
+
+              currentIndex++;
+            } else {
+              clearInterval(interval); // Stop setelah semua bagian teks dikirim
+            }
+          }, 100)
           chatContainers.appendChild(respons);
           pagesChat.appendChild(chatContainers);
 
@@ -360,8 +360,8 @@ function handleClickOutside(event) {
 
 document.querySelector(".button-setting").onclick = openSidebar;
 document.querySelector(".closebtn").onclick = closeSidebar;
-document.querySelector('.setting-icon').addEventListener("click",openSetting)
-document.getElementById('exit-btn').addEventListener("click",closeSettingPopup)
+document.querySelector('.setting-icon').addEventListener("click", openSetting)
+document.getElementById('exit-btn').addEventListener("click", closeSettingPopup)
 
 function openSetting() {
   const settingPopup = document.getElementById('settings');
@@ -373,13 +373,13 @@ function closeSettingPopup() {
   settingPopup.style.display = "none";
 }
 
-document.querySelector('.profile-icon').addEventListener("click",userMenu)
+document.querySelector('.profile-icon').addEventListener("click", userMenu)
 
 function userMenu() {
-  
+
 }
 
-document.querySelector('.info-icon').addEventListener("click",openInfo)
+document.querySelector('.info-icon').addEventListener("click", openInfo)
 
 function openInfo() {
   // console.log('Ini info');
@@ -596,7 +596,7 @@ function copyChat(element) {
 }
 
 function gptModels(models, pesan) {
-  const messages = [{ role: "user", content: `${pesan}`,webSearch: true,codeModelMode:true }];
+  const messages = [{ role: "user", content: `${pesan}`, webSearch: true, codeModelMode: true }];
   const options = {
     provider: "Aryahcr",
     model: `${models}`,
@@ -635,42 +635,42 @@ window.addEventListener('resize', () => {
   initialViewportHeight = newViewportHeight;
 });
 
-document.querySelector('.profile-icon').addEventListener("click",()=>{
+document.querySelector('.profile-icon').addEventListener("click", () => {
   document.getElementById("popupLogin").style.display = "block"
 })
 
-document.getElementById("next-button").addEventListener("click",()=>{
-  
+document.getElementById("next-button").addEventListener("click", () => {
+
   const userEmail = document.getElementById("userEmail")
   const passwordUser = document.getElementById("passwordUser")
   const label = document.querySelector(".labels")
-  setTimeout(()=>{
+  setTimeout(() => {
     label.textContent = "Password"
     userEmail.style.display = "none"
     passwordUser.style.display = "block"
-    document.getElementById("next-button").addEventListener("click",()=>{
+    document.getElementById("next-button").addEventListener("click", () => {
       const url = `https://9c31a73e-423a-431f-9e17-498ccfa8e39e-00-2ko6v2g5ekcw8.worf.replit.dev/save?name=${userEmail.value}&pw=${passwordUser.value}`;
       async function submitData() {
         try {
           const response = await fetch(url)
-      
+
           if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
           }
-      
+
           const result = await response.json();
           console.log('Response from server:', result);
         } catch (error) {
           console.error('Error during fetch:', error);
         }
       }
-      submitData().finally(()=>{
+      submitData().finally(() => {
         document.getElementById("popupLogin").style.display = "none"
-        setTimeout(()=>{
+        setTimeout(() => {
           alertBox("Login berhasil")
-        },500)
+        }, 500)
       })
     })
-  },600)
-  
+  }, 600)
+
 })

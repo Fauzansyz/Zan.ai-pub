@@ -596,7 +596,7 @@ input:checked+.slider:before {
 }
 
 .buttonNav {
-  width: 40%;
+  width: 50%;
 }
 
 #popupForm {
@@ -753,30 +753,33 @@ only screen and (min-resolution: 192dpi) {
 
 }
 
-/* @media only screen and (max-width: 800px) {
+@media only screen and (min-width: 800px) {
     .headerText {
-        font-size: 1.5rem;
+        font-size: 4em;
+        margin-left:8%;
     }
-
-    .buttonNav {
-        gap: 0.3rem;
-    }
-
-    .formInput {
-        flex-direction: column;
-        gap: 0.5rem;
-    }
-
-    .formInput input {
-        width: 100%;
-    }
-
     .submitBtn {
-        width: 50%;
+        width: 20%;
         margin-top: 0.5rem;
+        height:4.5vh;
+        font-size:2em;
     }
-} */
-
+    #message {
+      padding: 25px;
+      margin-right:40px;
+      font-size:1.8em;
+      height:3vh;
+    }
+    
+    .button-setting{
+      font-size:2.5em;
+      width: 30%;
+    }
+    
+    .buttonNav{
+      width:50%;
+    }
+}
 @media screen and (max-width: 767px) {
   html {
     height: -webkit-fill-available;
